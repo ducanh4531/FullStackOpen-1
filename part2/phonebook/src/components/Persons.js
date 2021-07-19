@@ -3,7 +3,7 @@ const Persons = ({ searchList, persons }) => {
     <>
       {searchList.map((item) => {
         return (
-          <p key={persons.indexOf(item)}>
+          <p key={item["id"]}>
             {item["name"]} {item["number"]}
           </p>
         );
