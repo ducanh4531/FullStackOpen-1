@@ -1,8 +1,8 @@
-import axios from "axios";
 import React, { useState, useEffect } from "react";
 import Filter from "./components/Filter";
 import PersonForm from "./components/PersonForm";
 import Persons from "./components/Persons";
+import { getAll, create, remove } from "./services/phonebook";
 
 const App = () => {
   const [persons, setPersons] = useState([]);
@@ -25,17 +25,17 @@ const App = () => {
       saveState();
     }
 
-    setPersonExist((personExist = false));
+    setPersonExist((personExist = true));
   };
 
   const saveState = () => {
-    const stateUpdate = [
-      {
-        name: newName,
-        number: newNum,
-      },
-    ];
+    const stateUpdate = {
+      name: newName,
+      number: newNum,
+      id: persons[persons.length - 1]["id"] + 1,
+    };
     setPersons(persons.concat(stateUpdate));
+    create(stateUpdate);
   };
 
   const handleNameChange = (event) => {
@@ -50,17 +50,10 @@ const App = () => {
     setSearch(event.target.value);
   };
 
-  const searchList =
-    search === ""
-      ? persons
-      : persons.filter((person) =>
-          person["name"].toLowerCase().includes(search)
-        );
-
   useEffect(() => {
     console.log("effect");
-    axios.get("http://localhost:3001/persons").then((response) => {
-      setPersons(response.data);
+    getAll().then((initialPersons) => {
+      setPersons(initialPersons);
     });
   }, []);
 
@@ -79,7 +72,7 @@ const App = () => {
         handleNumChange={handleNumChange}
       />
       <h2>Numbers</h2>
-      <Persons searchList={searchList} persons={persons} />
+      <Persons search={search} persons={persons} remove={remove} />
     </>
   );
 };
