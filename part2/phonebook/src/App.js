@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Filter from "./components/Filter";
 import PersonForm from "./components/PersonForm";
 import Persons from "./components/Persons";
+import Notification from "./components/Notification";
 import { getAll, create, remove } from "./services/phonebook";
 
 const App = () => {
@@ -10,6 +11,7 @@ const App = () => {
   const [newNum, setNewNum] = useState("");
   const [search, setSearch] = useState("");
   let [personExist, setPersonExist] = useState(false);
+  const [notification, setNotification] = useState("");
 
   const addName = (event) => {
     event.preventDefault();
@@ -25,7 +27,7 @@ const App = () => {
       saveState();
     }
 
-    setPersonExist((personExist = true));
+    setPersonExist((personExist = false));
   };
 
   const saveState = () => {
@@ -36,6 +38,7 @@ const App = () => {
     };
     setPersons(persons.concat(stateUpdate));
     create(stateUpdate);
+    setNotification(`Added ${stateUpdate.name}`);
   };
 
   const handleNameChange = (event) => {
@@ -60,6 +63,11 @@ const App = () => {
   return (
     <>
       <h2>Phonebook</h2>
+
+      <Notification
+        notification={notification}
+        setNotification={setNotification}
+      />
 
       <Filter search={search} handleSearch={handleSearch} />
 
