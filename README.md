@@ -7,5 +7,7 @@
 |---|---|---|---|---|
 | part0  |b| Fundamentals of Web Apps   |  [Click Here](https://github.com/mindninjaX/FullStackOpen/blob/master/part0/README.md) |✅  |
 | part1  |a,b,d| Introduction to React   |  [Click Here](https://github.com/mindninjaX/FullStackOpen/blob/master/part1) |✅  |
+| part2  |a,b,c,d,e| Communicating with server |  [Click Here](https://github.com/mindninjaX/FullStackOpen/tree/master/part2) |✅  |
+
 
 </div>
